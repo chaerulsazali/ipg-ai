@@ -1,0 +1,21 @@
+it_support_task:
+  description: >
+    Analyze the following IT issue:
+    Issue: {issue_description}
+    Priority: {priority_level}
+    Categorize the issue and explain possible causes.
+
+    Based on this issue:
+    Diagnose the technical root cause.
+    Suggest fixes related to server, API, or network.
+
+    Include:
+    - Immediate fix (based on priority)
+    - Long-term prevention
+    - Team responsibilities
+    
+  expected_output: >
+    A list with 10 bullet points of the most relevant information about {issue_description}
+  agent: it_support
+
+
