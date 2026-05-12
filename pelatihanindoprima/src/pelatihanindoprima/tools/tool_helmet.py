@@ -8,7 +8,7 @@ import json
 class Tool_helmet_input(BaseModel):
     """Input schema for MyCustomTool."""
 
-    argument: str = Field(..., description="location file")
+    argument: Dict[str, Any]= Field(..., description="location file")
 
 
 class Tool_helmet(BaseTool):
