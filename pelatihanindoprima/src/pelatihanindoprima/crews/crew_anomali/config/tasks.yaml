@@ -1,0 +1,7 @@
+task_anomali:
+  description: >
+    You are responsible for analyzing the result of 'Tool deteksi anomali' in {file}
+    if 'anomali' is greater than 'total data' / 2. show remainder, otherwise, say hello.
+  expected_output: >
+    Remainder based on custom tool 'Tool deteksi anomali' analyze result.
+  agent: agent_anomali

@@ -3,6 +3,8 @@ from src.pelatihanindoprima.crews.content_crew.content_crew import ContentCrew
 from src.pelatihanindoprima.crews.it_support.it_support import ItSupport
 from src.pelatihanindoprima.crews.analisator.analisator import Analisator
 from src.pelatihanindoprima.crews.file_anlyzer.file_anlyzer import FileAnlyzer
+from src.pelatihanindoprima.crews.crew_anomali.crew_anomali import CrewAnomali
+from src.pelatihanindoprima.crews.crew_deteksi_helmet.crew_deteksi_helmet import CrewDeteksiHelmet
 import logging
 import traceback
 
@@ -43,6 +45,24 @@ def file_txt_analyzer(self, file:str):
     self.update_state(state='RUNNING', meta={'current':f'start job for{file}'})
     try:
         result = FileAnlyzer().crew().kickoff(inputs={"file":file})
+        return result.raw
+    except Exception as e:
+        logger.error(f"Task failed with error: {e}\n{traceback.format_exc()}")
+
+@celery_app.task(bind=True, name="deteksi-anomali-excel")
+def deteksi_anomali_excel(self, file:str):
+    self.update_state(state='RUNNING', meta={'current':f'start job for{file}'})
+    try:
+        result = CrewAnomali().crew().kickoff(inputs={"file":file})
+        return result.raw
+    except Exception as e:
+        logger.error(f"Task failed with error: {e}\n{traceback.format_exc()}")
+
+@celery_app.task(bind=True, name="deteksi-helmet")
+def deteksi_helmet(self, file:str):
+    self.update_state(state='RUNNING', meta={'current':f'start job for{file}'})
+    try:
+        result = CrewDeteksiHelmet().crew().kickoff(inputs={"file":file})
         return result.raw
     except Exception as e:
         logger.error(f"Task failed with error: {e}\n{traceback.format_exc()}") 
